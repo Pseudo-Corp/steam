@@ -33,7 +33,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.tauri.dev",
+      "identifier": "com.pseudocorp.synergism",
       "longDescription": "",
       "macOS": {
         "entitlements": null,
@@ -43,7 +43,7 @@
         "signingIdentity": null
       },
       "resources": [],
-      "shortDescription": "",
+      "shortDescription": "The idle game created by Platonic & Khafra",
       "targets": "all",
       "windows": {
         "certificateThumbprint": null,
