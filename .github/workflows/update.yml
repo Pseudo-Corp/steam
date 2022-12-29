@@ -26,7 +26,7 @@ jobs:
             echo "CHANGED=true" >> $GITHUB_ENV
           fi
       - name: Update files
-        if: env.CHANGED == 'false'
+        if: env.CHANGED == 'true'
         run: |
           rm -rf ./steam/src
           cp -r SynergismOfficial steam/src
