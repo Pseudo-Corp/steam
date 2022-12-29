@@ -7,6 +7,9 @@ jobs:
   check_hash:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+
       - name: Install deps
         run: sudo apt install -y zip
       - name: clone Pseudo-Corp/SynergismOfficial
@@ -31,9 +34,13 @@ jobs:
           rm -rf ./steam/src
           cp -r SynergismOfficial steam/src
           cd steam
-          git add -A
-          git commit -m "Update files"
-          git push
+      - name: Upload files
+        if: env.CHANGED == 'true'
+        uses: test-room-7/action-update-file@v1
+        with:
+          file-path: src/*
+          commit-msg: Update Synergism
+          github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Cleanup
         run: |
           rm -rf steam steam.zip SynergismOfficial Synergism.zip
