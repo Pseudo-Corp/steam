@@ -34,14 +34,11 @@ jobs:
           rm -rf ./steam/src
           cp -r SynergismOfficial steam/src/
           cd steam
-      - name: Deploy
-        if: env.CHANGED == 'true'
-        uses: JamesIves/github-pages-deploy-action@3.7.1
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: main
-          FOLDER: steam/src
-          target-folder: src
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+          git add -A
+          git commit -m "Update Synergism"
+          git push origin master
       - name: Cleanup
         run: |
           rm -rf steam steam.zip SynergismOfficial Synergism.zip
