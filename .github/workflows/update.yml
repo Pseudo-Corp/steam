@@ -10,15 +10,14 @@ jobs:
 
       - name: Install deps
         run: sudo apt install -y zip
+      - name: clone Pseudo-Corp/steam
+        run: |
+          zip -r steam.zip .
       - name: clone Pseudo-Corp/SynergismOfficial
         run: |
           git clone https://github.com/Pseudo-Corp/SynergismOfficial && cd SynergismOfficial && git checkout gh-pages
           zip -r ../Synergism.zip .
           cd ..
-      - name: clone Pseudo-Corp/steam
-        run: |
-          git clone https://github.com/Pseudo-Corp/steam
-          zip -r steam.zip steam/src
       - name: Compare equality
         run: |
           if cmp -s Synergism.zip steam.zip; then
@@ -31,17 +30,13 @@ jobs:
       - name: Update files
         if: env.CHANGED == 'true'
         run: |
-          rm -rf ./steam/src 2> /dev/null
-          mkdir steam/src
-          mv SynergismOfficial/Pictures SynergismOfficial/dist SynergismOfficial/Synergism.css SynergismOfficial/favicon.ico SynergismOfficial/index.html steam/src/
-          cd steam
-          git config user.name "KhafraDev"
-          git config user.email "maitken033380023@gmail.com"
-          git remote set-url origin git@github.com:Pseudo-Corp/steam.git
-          git add -A
+          rm -rf ./src 2> /dev/null
+          mkdir src
+          mv SynergismOfficial/Pictures SynergismOfficial/dist SynergismOfficial/Synergism.css SynergismOfficial/favicon.ico SynergismOfficial/index.html ./src
+          git add src
           git commit -m "Update Synergism"
           git push
       - name: Cleanup
         run: |
-          rm -rf steam steam.zip SynergismOfficial Synergism.zip
+          rm -rf steam.zip SynergismOfficial Synergism.zip
 
