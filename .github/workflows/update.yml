@@ -33,6 +33,8 @@ jobs:
           rm -rf ./src 2> /dev/null
           mkdir src
           mv SynergismOfficial/Pictures SynergismOfficial/dist SynergismOfficial/Synergism.css SynergismOfficial/favicon.ico SynergismOfficial/index.html ./src
+          git config user.name "KhafraDev"
+          git config user.email "maitken033380023@gmail.com"
           git add src
           git commit -m "Update Synergism"
           git push
