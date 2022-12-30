@@ -28,6 +28,8 @@ jobs:
           else
             echo "CHANGED=true" >> $GITHUB_ENV
           fi
+
+          echo $CHANGED
       - name: Update files
         if: env.CHANGED == 'true'
         run: |
