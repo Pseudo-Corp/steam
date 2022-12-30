@@ -32,6 +32,7 @@ jobs:
         if: env.CHANGED == 'true'
         run: |
           rm -rf ./steam/src
+          mkdir steam/src
           mv SynergismOfficial/Pictures SynergismOfficial/dist SynergismOfficial/Synergism.css SynergismOfficial/favicon.ico SynergismOfficial/index.html steam/src/
           cd steam
           git config user.name "GitHub Actions Bot"
