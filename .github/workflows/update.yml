@@ -34,15 +34,13 @@ jobs:
         if: env.CHANGED == 'true'
         run: |
           rm -rf ./steam/src
-          cp -r SynergismOfficial steam/src
+          cp -r SynergismOfficial steam/src/
           cd steam
       - name: Upload files
         if: env.CHANGED == 'true'
         uses: EndBug/add-and-commit@v9
         with:
-          add: 'src'
           default_author: github_actor
-          fetch: false
           message: 'Update Synergism'
           pathspec_error_handling: ignore
           push: true
