@@ -31,7 +31,7 @@ jobs:
       - name: Update files
         if: env.CHANGED == 'true'
         run: |
-          rm -rf ./steam/src
+          rm -rf ./steam/src 2> /dev/null
           mkdir steam/src
           mv SynergismOfficial/Pictures SynergismOfficial/dist SynergismOfficial/Synergism.css SynergismOfficial/favicon.ico SynergismOfficial/index.html steam/src/
           cd steam
