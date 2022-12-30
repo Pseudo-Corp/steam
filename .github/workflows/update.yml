@@ -20,11 +20,9 @@ jobs:
           mkdir src
           mv SynergismOfficial/Pictures SynergismOfficial/dist SynergismOfficial/Synergism.css SynergismOfficial/favicon.ico SynergismOfficial/index.html ./src
           
-          echo running git status
-          git status --porcelain
-          echo done
+          git status --porcelain --untracked-files=no
 
-          if [[ `git status --porcelain` ]]; then
+          if [[ `git status --porcelain --untracked-files=no` ]]; then
             git config user.name "KhafraDev"
             git config user.email "maitken033380023@gmail.com"
             git add src
