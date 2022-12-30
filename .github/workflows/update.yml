@@ -36,11 +36,14 @@ jobs:
           cd steam
       - name: Upload files
         if: env.CHANGED == 'true'
-        uses: test-room-7/action-update-file@v1
+        uses: EndBug/add-and-commit@v9
         with:
-          file-path: src/*
-          commit-msg: Update Synergism
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          add: 'src'
+          default_author: github_actor
+          fetch: false
+          message: 'Update Synergism'
+          pathspec_error_handling: ignore
+          push: true
       - name: Cleanup
         run: |
           rm -rf steam steam.zip SynergismOfficial Synergism.zip
