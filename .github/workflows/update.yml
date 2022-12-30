@@ -1,7 +1,5 @@
 name: 'update-game-files'
-on:
-  schedule:
-    - cron: '*/5 * * * *'
+on: push
 
 jobs:    
   check_hash:
