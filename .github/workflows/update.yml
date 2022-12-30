@@ -39,7 +39,7 @@ jobs:
           git config user.email "<>"
           git add -A
           git commit -m "Update Synergism"
-          git push origin main
+          git push
       - name: Cleanup
         run: |
           rm -rf steam steam.zip SynergismOfficial Synergism.zip
