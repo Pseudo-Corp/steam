@@ -1,0 +1,48 @@
+name: 'update-game-files'
+on: push
+
+jobs:    
+  check_hash:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+
+      - name: Install deps
+        run: sudo apt install -y zip
+      - name: clone Pseudo-Corp/SynergismOfficial
+        run: |
+          git clone https://github.com/Pseudo-Corp/SynergismOfficial && cd SynergismOfficial && git checkout gh-pages
+          zip -r ../Synergism.zip .
+          cd ..
+      - name: clone Pseudo-Corp/steam
+        run: |
+          git clone https://github.com/Pseudo-Corp/steam
+          zip -r steam.zip steam/src
+      - name: Compare equality
+        run: |
+          if cmp -s Synergism.zip steam.zip; then
+            echo "CHANGED=false" >> $GITHUB_ENV
+          else
+            echo "CHANGED=true" >> $GITHUB_ENV
+          fi
+
+          echo $CHANGED
+      - name: Update files
+        if: env.CHANGED == 'true'
+        run: |
+          rm -rf ./steam/src
+          cp -r SynergismOfficial steam/src/
+          cd steam
+      - name: Deploy
+        if: env.CHANGED == 'true'
+        uses: JamesIves/github-pages-deploy-action@3.7.1
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: main
+          FOLDER: steam/src
+          target-folder: src
+      - name: Cleanup
+        run: |
+          rm -rf steam steam.zip SynergismOfficial Synergism.zip
+
