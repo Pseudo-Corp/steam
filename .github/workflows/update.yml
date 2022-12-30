@@ -37,6 +37,7 @@ jobs:
           cd steam
           git config user.name "KhafraDev"
           git config user.email "maitken033380023@gmail.com"
+          git remote set-url origin git@github.com:Pseudo-Corp/steam.git
           git add -A
           git commit -m "Update Synergism"
           git push
