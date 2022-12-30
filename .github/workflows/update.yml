@@ -32,13 +32,13 @@ jobs:
         if: env.CHANGED == 'true'
         run: |
           rm -rf ./steam/src
-          cp -r SynergismOfficial steam/src/
+          mv SynergismOfficial/Pictures SynergismOfficial/dist SynergismOfficial/Synergism.css SynergismOfficial/favicon.ico SynergismOfficial/index.html steam/src/
           cd steam
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
           git add -A
           git commit -m "Update Synergism"
-          git push origin master
+          git push origin main
       - name: Cleanup
         run: |
           rm -rf steam steam.zip SynergismOfficial Synergism.zip
