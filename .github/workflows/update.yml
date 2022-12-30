@@ -35,8 +35,8 @@ jobs:
           mkdir steam/src
           mv SynergismOfficial/Pictures SynergismOfficial/dist SynergismOfficial/Synergism.css SynergismOfficial/favicon.ico SynergismOfficial/index.html steam/src/
           cd steam
-          git config user.name "GitHub Actions Bot"
-          git config user.email "<>"
+          git config user.name "KhafraDev"
+          git config user.email "maitken033380023@gmail.com"
           git add -A
           git commit -m "Update Synergism"
           git push
