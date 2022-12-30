@@ -1,7 +1,5 @@
 name: 'update-game-files'
-on:
-  schedule:
-    - cron: '0 * * * *'
+on: push
 
 jobs:    
   check_hash:
@@ -10,36 +8,27 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
 
-      - name: Install deps
-        run: sudo apt install -y zip
-      - name: clone Pseudo-Corp/steam
-        run: |
-          zip -r steam.zip .
       - name: clone Pseudo-Corp/SynergismOfficial
         run: |
-          git clone https://github.com/Pseudo-Corp/SynergismOfficial && cd SynergismOfficial && git checkout gh-pages
-          zip -r ../Synergism.zip .
+          git clone https://github.com/Pseudo-Corp/SynergismOfficial
+          cd SynergismOfficial
+          git checkout gh-pages
           cd ..
-      - name: Compare equality
-        run: |
-          if cmp -s Synergism.zip steam.zip; then
-            echo "CHANGED=false" >> $GITHUB_ENV
-          else
-            echo "CHANGED=true" >> $GITHUB_ENV
-          fi
-
-          echo $CHANGED
       - name: Update files
-        if: env.CHANGED == 'true'
         run: |
-          rm -rf ./src 2> /dev/null
+          rm -rf ./src
           mkdir src
           mv SynergismOfficial/Pictures SynergismOfficial/dist SynergismOfficial/Synergism.css SynergismOfficial/favicon.ico SynergismOfficial/index.html ./src
-          git config user.name "KhafraDev"
-          git config user.email "maitken033380023@gmail.com"
-          git add src
-          git commit -m "Update Synergism"
-          git push
+          
+          if [[ `git status --porcelain` ]]; then
+            git config user.name "KhafraDev"
+            git config user.email "maitken033380023@gmail.com"
+            git add src
+            git commit -m "Update Synergism"
+            git push
+          else
+            echo no changes
+          fi
       - name: Cleanup
         run: |
           rm -rf steam.zip SynergismOfficial Synergism.zip
