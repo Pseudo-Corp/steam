@@ -20,6 +20,10 @@ jobs:
           mkdir src
           mv SynergismOfficial/Pictures SynergismOfficial/dist SynergismOfficial/Synergism.css SynergismOfficial/favicon.ico SynergismOfficial/index.html ./src
           
+          echo running git status
+          git status --porcelain
+          echo done
+
           if [[ `git status --porcelain` ]]; then
             git config user.name "KhafraDev"
             git config user.email "maitken033380023@gmail.com"
@@ -31,5 +35,5 @@ jobs:
           fi
       - name: Cleanup
         run: |
-          rm -rf steam.zip SynergismOfficial Synergism.zip
+          rm -rf SynergismOfficial
 
