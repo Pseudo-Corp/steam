@@ -26,4 +26,4 @@ jobs:
         run: npm i && npm run tauri build
       - uses: tauri-apps/tauri-action@v0
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.SYNERGISM }}
