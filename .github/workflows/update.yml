@@ -34,7 +34,6 @@ jobs:
             git push
             echo "UPDATED=true" >> $GITHUB_OUTPUT
           else
-            echo "UPDATED=false" >> $GITHUB_OUTPUT
             echo no changes
           fi
       - name: Cleanup
@@ -78,12 +77,12 @@ jobs:
           cache: 'npm' # Set this to npm, yarn or pnpm.
 
       - name: Install app dependencies and build web
-        if: ${{ needs.check_hash.outputs.UPDATED == 'true' }}
+        if: always() && needs.check_hash.outputs.UPDATED
         # Remove `&& yarn build` if you build your frontend in `beforeBuildCommand`
         run: npm i && npm run tauri build
 
       - name: Build the app
-        if: ${{ needs.check_hash.outputs.UPDATED == 'true' }}
+        if: always() && needs.check_hash.outputs.UPDATED
         uses: tauri-apps/tauri-action@v0
 
         env:
