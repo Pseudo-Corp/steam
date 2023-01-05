@@ -6,11 +6,13 @@ on:
 jobs:    
   check_hash:
     runs-on: ubuntu-latest
-    outputs:
-      update: ${{ steps.update_files.outputs.UPDATED }}
     steps:
-      - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
+
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.SYNERGISM }}
 
       - name: clone Pseudo-Corp/SynergismOfficial
         run: |
@@ -32,64 +34,9 @@ jobs:
             git add src
             git commit -m "Update Synergism"
             git push
-            echo "UPDATED=true" >> $GITHUB_OUTPUT
           else
             echo no changes
           fi
       - name: Cleanup
         run: |
           rm -rf SynergismOfficial
-  release:
-    needs: check_hash
-    strategy:
-      fail-fast: false
-      matrix:
-        platform: [macos-latest, ubuntu-20.04, windows-latest]
-    runs-on: ${{ matrix.platform }}
-    steps:
-      - name: Log env vars
-        run: |
-          env
-          echo $GITHUB_OUTPUT
-
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Install dependencies (ubuntu only)
-        if: matrix.platform == 'ubuntu-20.04'
-        # You can remove libayatana-appindicator3-dev if you don't use the system tray feature.
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.0-dev libayatana-appindicator3-dev librsvg2-dev
-
-      - name: Rust setup
-        uses: dtolnay/rust-toolchain@stable
-
-      - name: Rust cache
-        uses: swatinem/rust-cache@v2
-        with:
-          workspaces: './src-tauri -> target'
-
-      - name: Sync node version and setup cache
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-          cache: 'npm' # Set this to npm, yarn or pnpm.
-
-      - name: Install app dependencies and build web
-        if: always() && needs.check_hash.outputs.UPDATED
-        # Remove `&& yarn build` if you build your frontend in `beforeBuildCommand`
-        run: npm i && npm run tauri build
-
-      - name: Build the app
-        if: always() && needs.check_hash.outputs.UPDATED
-        uses: tauri-apps/tauri-action@v0
-
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tagName: ${{ github.ref_name }} # This only works if your workflow triggers on new tags.
-          releaseName: 'v__VERSION__' # tauri-action replaces \_\_VERSION\_\_ with the app version.
-          releaseBody: 'Synergism'
-          releaseDraft: true
-          prerelease: false
