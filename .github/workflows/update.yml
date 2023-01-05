@@ -40,7 +40,6 @@ jobs:
           rm -rf SynergismOfficial
   release:
     needs: check_hash
-    if: ${{ env.UPDATED == 'true' }}
     strategy:
       fail-fast: false
       matrix:
@@ -72,10 +71,12 @@ jobs:
           cache: 'npm' # Set this to npm, yarn or pnpm.
 
       - name: Install app dependencies and build web
+        if: ${{ env.UPDATED == 'true' }}
         # Remove `&& yarn build` if you build your frontend in `beforeBuildCommand`
         run: npm i && npm run tauri build
 
       - name: Build the app
+        if: ${{ env.UPDATED == 'true' }}
         uses: tauri-apps/tauri-action@v0
 
         env:
