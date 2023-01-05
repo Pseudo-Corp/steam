@@ -6,6 +6,8 @@ on:
 jobs:    
   check_hash:
     runs-on: ubuntu-latest
+    outputs:
+      update: ${{ steps.update_files.outputs.UPDATED }}
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -16,7 +18,7 @@ jobs:
           cd SynergismOfficial
           git checkout gh-pages
           cd ..
-      - name: Update files
+      - name: update_files
         run: |
           rm -rf ./src
           mkdir src
@@ -30,9 +32,9 @@ jobs:
             git add src
             git commit -m "Update Synergism"
             git push
-            echo "UPDATED=true" >> $GITHUB_ENV
+            echo "UPDATED=true" >> $GITHUB_OUTPUT
           else
-            echo "UPDATED=false" >> $GITHUB_ENV
+            echo "UPDATED=false" >> $GITHUB_OUTPUT
             echo no changes
           fi
       - name: Cleanup
@@ -47,7 +49,9 @@ jobs:
     runs-on: ${{ matrix.platform }}
     steps:
       - name: Log env vars
-        run: env
+        run: |
+          env
+          echo $GITHUB_OUTPUT
 
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -74,12 +78,12 @@ jobs:
           cache: 'npm' # Set this to npm, yarn or pnpm.
 
       - name: Install app dependencies and build web
-        if: ${{ env.UPDATED == 'true' }}
+        if: ${{ needs.check_hash.outputs.UPDATED == 'true' }}
         # Remove `&& yarn build` if you build your frontend in `beforeBuildCommand`
         run: npm i && npm run tauri build
 
       - name: Build the app
-        if: ${{ env.UPDATED == 'true' }}
+        if: ${{ needs.check_hash.outputs.UPDATED == 'true' }}
         uses: tauri-apps/tauri-action@v0
 
         env:
