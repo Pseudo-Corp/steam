@@ -24,7 +24,7 @@ jobs:
         run: |
           rm -rf ./src
           mkdir src
-          mv SynergismOfficial/Pictures SynergismOfficial/dist SynergismOfficial/Synergism.css SynergismOfficial/favicon.ico SynergismOfficial/index.html ./src
+          mv SynergismOfficial/Pictures SynergismOfficial/translations SynergismOfficial/dist SynergismOfficial/Synergism.css SynergismOfficial/favicon.ico SynergismOfficial/index.html ./src
           
           git status --porcelain --untracked-files=no
 
