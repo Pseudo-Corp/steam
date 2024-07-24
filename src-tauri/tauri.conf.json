@@ -55,16 +55,14 @@
       "csp": null
     },
     "updater": {
-      "updater": {
-        "active": true,
-        "endpoints": [
-          "https://synergism.cc/steam/download/{{target}}/{{arch}}/{{current_version}}"
-        ],
-        "dialog": true,
-        "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDIzODExRDgzMzRGRDg4MjEKUldRaGlQMDBneDJCSTFxMytIYlF5bTFESHE1eU5JY3Y3Zk5tUWZ2SU1JRTgvSzlWelREWlV4bm0K",
-        "windows": {
-          "installMode": "passive"
-        }
+      "active": true,
+      "endpoints": [
+        "https://synergism.cc/steam/download/{{target}}/{{arch}}/{{current_version}}"
+      ],
+      "dialog": true,
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDIzODExRDgzMzRGRDg4MjEKUldRaGlQMDBneDJCSTFxMytIYlF5bTFESHE1eU5JY3Y3Zk5tUWZ2SU1JRTgvSzlWelREWlV4bm0K",
+      "windows": {
+        "installMode": "passive"
       }
     },
     "windows": [
