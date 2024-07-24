@@ -51,8 +51,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TAURI_PRIVATE_KEY: ${{ secrets.TAURI_PRIVATE_KEY }}
+          TAURI_KEY_PASSWORD: ""
         with:
-          tagName: ${{ github.ref_name }}-${{ steps.hash.outputs.version }}
+          tagName: ${{ github.ref_name }}
           releaseName: 'v0.0.1-${{ steps.hash.outputs.version }}'
           releaseBody: 'Synergism'
           releaseDraft: true
