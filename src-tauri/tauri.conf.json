@@ -60,7 +60,7 @@
         "https://synergism.cc/steam/download/{{target}}/{{arch}}/{{current_version}}"
       ],
       "dialog": true,
-      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDIzODExRDgzMzRGRDg4MjEKUldRaGlQMDBneDJCSTFxMytIYlF5bTFESHE1eU5JY3Y3Zk5tUWZ2SU1JRTgvSzlWelREWlV4bm0K",
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDgyRTNGOENGNTY1NzBEOUYKUldTZkRWZFd6L2pqZ2llNkxlRVRwU1htVm40K3VjR1NQUUVCLzM5bHFaWGc5dGJHZDlaK3NXWUgK",
       "windows": {
         "installMode": "passive"
       }
