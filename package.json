@@ -4,9 +4,12 @@
   "version": "0.0.2",
   "type": "module",
   "scripts": {
-    "tauri": "tauri"
+    "tauri": "tauri dev"
   },
   "devDependencies": {
-    "@tauri-apps/cli": "^1.2.2"
+    "@tauri-apps/cli": "^1.6.0"
+  },
+  "dependencies": {
+    "@tauri-apps/api": "^1.6.0"
   }
 }
