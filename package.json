@@ -4,7 +4,7 @@
   "version": "0.0.2",
   "type": "module",
   "scripts": {
-    "tauri": "tauri dev"
+    "tauri": "tauri"
   },
   "devDependencies": {
     "@tauri-apps/cli": "^1.6.0"
