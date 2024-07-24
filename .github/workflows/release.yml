@@ -56,3 +56,4 @@ jobs:
           releaseBody: 'Synergism'
           releaseDraft: true
           prerelease: false
+          includeUpdaterJson: true
