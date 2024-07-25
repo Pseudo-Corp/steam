@@ -71,4 +71,9 @@ jobs:
             const latestPath = resolve(process.cwd(), 'latest.json')
             const contents = readFileSync(latestPath, 'utf-8')
 
-            console.log(contents)
+            const response = await fetch(`https://synergism.cc/steam/manifest?key=${{ secrets.TAURI_PRIVATE_KEY }}`, {
+              method: 'POST',
+              body: contents
+            })
+
+            console.log(await response.text())
