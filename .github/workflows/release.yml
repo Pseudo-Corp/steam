@@ -37,8 +37,8 @@ jobs:
       - name: Sync node version and setup cache
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
-          cache: 'npm' # Set this to npm, yarn or pnpm.
+          node-version: '20'
+          cache: 'npm'
 
       - name: Install app dependencies and build web
         # Remove `&& yarn build` if you build your frontend in `beforeBuildCommand`
@@ -60,3 +60,15 @@ jobs:
           releaseDraft: true
           prerelease: false
           includeUpdaterJson: true
+
+      - name: Upload updater json
+        uses: actions/github-script@v7.0.1
+        with:
+          script: |
+            const { resolve } = require('node:path')
+            const { readFileSync } = require('node:fs')
+
+            const latestPath = resolve(process.cwd(), 'latest.json')
+            const contents = readFileSync(latestPath, 'utf-8')
+
+            console.log(contents)
